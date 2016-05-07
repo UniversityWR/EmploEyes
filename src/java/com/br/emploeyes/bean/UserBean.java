@@ -9,6 +9,8 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class UserBean {
     
+    //TESTE É TESTE MESMO E VAI TOMAR NO SEU CU!
+    
     private User user = new User();
 
     public User getUser() {
