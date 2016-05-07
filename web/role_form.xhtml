@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Role Form</title>
+    </h:head>
+    <h:body>
+        <b:container>
+            <b:row>
+                <b:column>
+                    <h:form id="roleForm">
+                        <b:container class="container">
+                            <b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputText placeholder="Name" required="true" id="name" value="#{roleBean.role.name}"/>
+                                </b:column> 
+                            </b:row><b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputText placeholder="Start Year" required="true" id="startYear" value="#{roleBean.role.startYear}"/>
+                                </b:column> 
+                            </b:row><b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputText placeholder="End Year" required="true" id="endYear" value="#{roleBean.role.endYear}"/>
+                                </b:column> 
+                            </b:row><b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputText placeholder="Salary" required="true" id="salary" value="#{roleBean.role.salary}"/>
+                                </b:column> 
+                            </b:row><b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputText placeholder="Feedback" required="true" id="feedback" value="#{roleBean.role.feedback}"/>
+                                </b:column>  
+                            </b:row> 
+                            <b:row>
+                                <b:column span="2" offset="0">
+                                    <b:commandButton value="saveRole" action="#{roleBean.saveRole(roleBean.role)}" update="@form" look="primary"
+                                                     style="width:100%" />
+                                </b:column> 
+                            </b:row>
+                        </b:container>
+                    </h:form>
+                </b:column>
+            </b:row>
+        </b:container>
+    </h:body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Login</title>
+    </h:head>
+    <h:body>
+        <b:container>
+            <b:row>
+                <b:column>
+                    <h:form id="loginForm">
+                        <b:container class="container">
+                            <b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputText placeholder="E-mail" required="true" id="email" value="#{userBean.user.email}">
+                                        <f:facet name="prepend">
+                                            <b:icon name="user" />
+                                        </f:facet>
+                                    </b:inputText>
+                                </b:column>
+                                <b:column medium-screen="6">
+                                    <b:message for="email" />
+                                </b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column medium-screen="4">
+                                    <b:inputSecret placeholder="Password" id="password" value="#{userBean.user.password}">
+                                        <f:facet name="prepend">
+                                            <b:iconAwesome name="key" />
+                                        </f:facet>
+                                    </b:inputSecret>
+                                </b:column>
+                                <b:column medium-screen="6">
+                                    <b:message for="password" />
+                                </b:column>
+                            </b:row>
+                            <b:row>
+                                <b:column span="2" offset="0">
+                                    <b:commandButton value="login" action="#{userBean.validateLogin(userBean.user)}" update="@form" look="primary"
+                                                     style="width:100%" />
+                                </b:column>
+                                <b:column span="2">
+                                    <b:commandButton value="password forgotten" onclick="" update="@form"
+                                                     look="danger" style="width:100%" />
+                                </b:column>
+                            </b:row>
+                        </b:container>
+                    </h:form>
+                </b:column>
+            </b:row>
+        </b:container>
+    </h:body>
+</html>
