@@ -21,4 +21,8 @@ public class RoleBean {
     public String saveRole(Role role){
         return "user_account?faces-redirect=true";
     }
+    
+    public String addCompany(Role role){
+        return "company_form?faces-redirect=true";
+    }
 }

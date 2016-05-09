@@ -19,6 +19,6 @@ public class CompanyBean {
     } 
     
     public String saveCompany(Company company){
-        return null;
+        return "role_form?faces-redirect=true";
     }
 }
