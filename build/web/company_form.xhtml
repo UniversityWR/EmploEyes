@@ -39,7 +39,7 @@
                             </b:row> 
                             <b:row>
                                 <b:column span="2" offset="0">
-                                    <b:commandButton value="saveCompany" action="#{companyBean.saveCompany(companyBean.company)}" update="@form" look="primary"
+                                    <b:commandButton value="saveCompany" action="#{companyListBean.saveCompany(companyBean.company, roleBean.role)}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column> 
                             </b:row>

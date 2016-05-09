@@ -6,6 +6,7 @@ public class Role {
 
     private long id;
     private long userId;
+    private long companyId;
     private int startYear;
     private int endYear;
     private double salary;
@@ -83,4 +84,11 @@ public class Role {
         this.userId = userId;
     }
 
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
+    }
 }

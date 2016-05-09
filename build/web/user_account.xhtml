@@ -54,6 +54,15 @@
                                                      style="width:100%" />
                                 </b:column> 
                             </b:row>
+                            
+                            <h:dataTable value="#{roleListBean.getRoleListByUserId(userBean.user.id)}" var="role">
+                                <h:column>
+                                    <h:outputLabel value="#{role.name}"/><h:outputLabel value=" - "/>
+                                    <h:outputLabel value="#{role.id}"/><h:outputLabel value=" - "/>
+                                    <h:outputLabel value="#{role.userId}"/>  <b:commandButton id="editRole" value="Edit Role" action="#{roleListBean.editRole(role.id)}" look="secondary"
+                                                     style="width:100%" />
+                                </h:column>
+                            </h:dataTable>
                         </b:container>
                     </h:form>
                 </b:column>
