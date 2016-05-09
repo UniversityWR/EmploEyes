@@ -19,6 +19,6 @@ public class RoleBean {
     } 
     
     public String saveRole(Role role){
-        return null;
+        return "user_account?faces-redirect=true";
     }
 }

@@ -6,14 +6,20 @@
 <navigation-rule>
 	<from-view-id>index.xhtml</from-view-id>
 	<navigation-case>
+                <!--<from-action>#{userBean.validateLogin(userBean.user)}</from-action>-->
 		<from-outcome>user_account</from-outcome>
-		<to-view-id>user_account.xhtml</to-view-id>
-		<redirect />
-	</navigation-case>
+		<to-view-id>user_account.xhtml</to-view-id> 
+                <redirect/>
+	</navigation-case>  
+</navigation-rule>
+
+<navigation-rule> 
+	<from-view-id>user_account.xhtml</from-view-id>
         <navigation-case>
+                <!--<from-action>#{userBean.addRole(userBean.user)}</from-action>-->
 		<from-outcome>role_form</from-outcome>
-		<to-view-id>role_form.xhtml</to-view-id>
-		<redirect />
+		<to-view-id>role_form.xhtml</to-view-id> 
+                <redirect/>
 	</navigation-case>
 </navigation-rule>
 </faces-config>

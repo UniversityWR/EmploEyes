@@ -20,7 +20,7 @@ public class UserBean {
     }
     
     public String validateLogin(User user) { 
-        return "user_account?faces-redirect=true";
+        return "user_account";
     }
     
     public String addRole(User user) { 
