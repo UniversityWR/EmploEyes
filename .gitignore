@@ -50,4 +50,4 @@ Temporary Items
 nbproject/*
 *.NavData
 dist/* 
-build\*
+build/*
