@@ -47,6 +47,7 @@ Temporary Items
 .apdisk
 *.class 
 *.properties
-nbproject/project.properties
+nbproject/*
 *.NavData
 dist/* 
+build\*
