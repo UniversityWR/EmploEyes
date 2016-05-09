@@ -7,9 +7,7 @@ import javax.faces.bean.RequestScoped;
 
 @ManagedBean
 @RequestScoped
-public class UserBean {
-    
-    //TESTE É TESTE MESMO E VAI TOMAR NO SEU CU!
+public class UserBean { 
     
     private User user = new User();
 
@@ -26,7 +24,7 @@ public class UserBean {
     }
     
     public String addRole(User user) { 
-        return "role_form?faces-redirect=true";
+        return "role_form";
     }
     
     public String saveUser(User user){
