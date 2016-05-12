@@ -1,10 +1,17 @@
 package com.br.emploeyes.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public class User {
-
+@Entity
+public class User implements Serializable  {
+    
+    @Id
+    @GeneratedValue
     private long id;
     private int yearOld;
     private String name;
@@ -15,14 +22,6 @@ public class User {
     private String password;
    
     public User() {
-        this.id = UUID.randomUUID().getMostSignificantBits();
-    }
-
-    public User(String name, String email, String password) {
-        this();
-        this.name = name;
-        this.email = email;
-        this.password = password;
     }
 
     public long getId() {

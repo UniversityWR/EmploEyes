@@ -8,7 +8,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
  
 @ManagedBean
-@ApplicationScoped
+@RequestScoped
 public class RoleBean {
     
     private Role role = new Role();

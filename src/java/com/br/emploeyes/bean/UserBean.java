@@ -1,5 +1,6 @@
 package com.br.emploeyes.bean;
 
+import com.br.emploeyes.dao.Dao;
 import com.br.emploeyes.model.User;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -8,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 
 @ManagedBean
-@ApplicationScoped
+@RequestScoped
 public class UserBean { 
     
     private User user = new User();
@@ -22,17 +23,21 @@ public class UserBean {
     }
     
     public String validateLogin(User user) { 
+        
+        Dao<User> dao = Dao.newInstance();
         return "user_account";
     }
     
     public String addRole(User user) {  
         
         /* Remove/Clear the Managed Role from the ApplicationScoped*/
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().remove("roleBean");
+//        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().remove("roleBean");
         return "role_form?faces-redirect=true";
     }
     
     public String saveUser(User user){
+        Dao<User> dao = Dao.newInstance();
+        dao.save(user);
         return null;
     }
 

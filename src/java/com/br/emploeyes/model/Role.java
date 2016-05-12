@@ -1,9 +1,16 @@
 package com.br.emploeyes.model;
 
+import java.io.Serializable;
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public class Role {
+@Entity
+public class Role implements Serializable {
 
+    @Id
+    @GeneratedValue
     private long id;
     private long userId;
     private long companyId;
@@ -13,20 +20,8 @@ public class Role {
     private String name;
     private String feedback;
 
-    public Role() {
-        this.id = UUID.randomUUID().getMostSignificantBits();
-    }
- 
-    public Role(String name, long userId, int startYear, int endYear, double salary, String feedback) {
-        this();
-        this.name = name;
-        this.userId = userId;
-        this.startYear = startYear;
-        this.endYear = endYear;
-        this.salary = salary;
-        this.feedback = feedback;
-        
-    }
+    public Role() { 
+    } 
 
     public String getName() {
         return name;

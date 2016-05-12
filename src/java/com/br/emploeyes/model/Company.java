@@ -1,11 +1,18 @@
 package com.br.emploeyes.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public class Company {
+@Entity
+public class Company implements Serializable {
 
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private String city;
@@ -13,20 +20,11 @@ public class Company {
     private String country;
     private String branch;
     private String description;
-    private final List<Role> roleList;
+    private final List<Role> roleList = new ArrayList<>();
 
     public Company() {
-        this.roleList = new ArrayList<>();
-        this.id = UUID.randomUUID().getMostSignificantBits();
-    }
+    } 
     
-    public Company(String name, String branch, String description) {
-        this();
-        this.name = name;
-        this.branch = branch;
-        this.description = description;
-    }
-
     public void addRole(Role role) {
         roleList.add(role);
     }
