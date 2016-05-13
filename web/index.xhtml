@@ -38,11 +38,11 @@
                             </b:row>
                             <b:row>
                                 <b:column span="2" offset="0">
-                                    <b:commandButton value="login" action="#{userBean.validateLogin(userBean.user)}" update="@form" look="primary"
+                                    <b:commandButton value="login" action="#{userBean.validateLogin()}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column>
                                 <b:column span="2">
-                                    <b:commandButton value="password forgotten" onclick="" update="@form"
+                                    <b:commandButton value="Create Account" action="#{userBean.createEmployee()}" update="@form"
                                                      look="danger" style="width:100%" />
                                 </b:column>
                             </b:row>

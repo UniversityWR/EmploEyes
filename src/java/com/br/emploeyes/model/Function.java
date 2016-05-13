@@ -1,13 +1,12 @@
 package com.br.emploeyes.model;
 
-import java.io.Serializable;
-import java.util.UUID;
+import java.io.Serializable; 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Role implements Serializable {
+public class Function implements Serializable {
 
     @Id
     @GeneratedValue
@@ -20,7 +19,7 @@ public class Role implements Serializable {
     private String name;
     private String feedback;
 
-    public Role() { 
+    public Function() { 
     } 
 
     public String getName() {

@@ -2,11 +2,11 @@ package com.br.emploeyes.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.List; 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Company implements Serializable {
@@ -16,17 +16,18 @@ public class Company implements Serializable {
     private long id;
     private String name;
     private String city;
-    private String state;
+    private String province;
     private String country;
     private String branch;
     private String description;
-    private final List<Role> roleList = new ArrayList<>();
+    @OneToMany
+    private final List<Function> functionList = new ArrayList<>();
 
     public Company() {
     } 
     
-    public void addRole(Role role) {
-        roleList.add(role);
+    public void addRole(Function role) {
+        functionList.add(role);
     }
 
     public long getId() {
@@ -54,11 +55,11 @@ public class Company implements Serializable {
     }
 
     public String getState() {
-        return state;
+        return province;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.province = state;
     }
 
     public String getCountry() {
@@ -85,8 +86,8 @@ public class Company implements Serializable {
         this.description = description;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
+    public List<Function> getRoleList() {
+        return functionList;
     }
 
 }

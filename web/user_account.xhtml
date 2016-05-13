@@ -3,6 +3,13 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
+    
+    
+  <f:metadata>
+      <f:viewParam name="idUser" value="#{userBean.idUser}"/>
+    <f:viewAction action="#{userBean.init}" />
+  </f:metadata>
+    
     <h:head>
         <title>User Account</title>
     </h:head>

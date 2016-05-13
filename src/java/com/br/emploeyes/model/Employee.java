@@ -1,14 +1,12 @@
 package com.br.emploeyes.model;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
+import java.io.Serializable; 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class User implements Serializable  {
+public class Employee implements Serializable  {
     
     @Id
     @GeneratedValue
@@ -17,11 +15,11 @@ public class User implements Serializable  {
     private String name;
     private String email;
     private String city;
-    private String state;
+    private String province;
     private String country;
     private String password;
    
-    public User() {
+    public Employee() {
     }
 
     public long getId() {
@@ -65,11 +63,11 @@ public class User implements Serializable  {
     }
 
     public String getState() {
-        return state;
+        return province;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.province = state;
     }
 
     public String getCountry() {

@@ -1,54 +1,58 @@
 package com.br.emploeyes.bean;
 
 import com.br.emploeyes.dao.Dao;
-import com.br.emploeyes.model.Role;
-import com.br.emploeyes.model.User;
+import com.br.emploeyes.model.Function;
+import com.br.emploeyes.model.Employee;
 import java.util.ArrayList;
-import java.util.List; 
-import javax.faces.bean.ManagedBean; 
+import java.util.List;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
- 
+
 @ManagedBean
 @RequestScoped
-public class RoleListBean { 
+public class RoleListBean {
 
-    public List<Role> getRoleList() {
-        Dao<Role> dao = Dao.newInstance(); 
-        return dao.getAll(Role.class);
+    public List<Function> getRoleList() {
+        Dao<Function> dao = Dao.newInstance();
+        return dao.getAll(Function.class);
     }
 
-    public List<Role> getRoleListByUserId(long id) {
-        
-        List<Role> newRoleList = new ArrayList<>();
+    public List<Function> getRoleListByUserId(long id) {
+
+        List<Function> newRoleList = new ArrayList<>();
         newRoleList.clear();
-        for(Role role : getRoleList()){
-            if(role.getUserId() == id){
-                newRoleList.add(role);
+        try {
+            for (Function role : getRoleList()) {
+                if (role.getUserId() == id) {
+                    newRoleList.add(role);
+                }
             }
-        } 
+        } catch (ClassCastException e) {
+
+        }
         return newRoleList;
-    }  
-    
+    }
+
     public String editRole(long id) {
-        
-        List<Role> newRoleList = new ArrayList<>();
+
+        List<Function> newRoleList = new ArrayList<>();
         newRoleList.clear();
-        for(Role role : getRoleList()){
-            if(role.getId() == id){ 
+        for (Function role : getRoleList()) {
+            if (role.getId() == id) {
                 System.out.println(role.getId());
                 //Add object Role to the ApplicationScoped
-                FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().put("roleBean.role", role);
+                FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("roleBean.role", role);
                 return "role_form?faces-redirect=true";
             }
-        } 
+        }
         return "";
-    }   
-    
-    public String saveRole(Role role, User user){
+    }
+
+    public String saveRole(Function role, Employee user) {
         role.setUserId(user.getId());
-        Dao<Role> dao = Dao.newInstance();
-        dao.save(role);         
-        return "user_account?faces-redirect=true";
-    } 
+        Dao<Function> dao = Dao.newInstance();
+        dao.save(role);
+        return "user_account??faces-redirect=true&includeViewParams=true";
+    }
 }

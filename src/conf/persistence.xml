@@ -3,9 +3,9 @@
   <persistence-unit name="EmploEyesPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.br.emploeyes.model.Company</class>
-    <class>com.br.emploeyes.model.Role</class>
-    <class>com.br.emploeyes.model.User</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>com.br.emploeyes.model.Function</class>
+    <class>com.br.emploeyes.model.Employee</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>

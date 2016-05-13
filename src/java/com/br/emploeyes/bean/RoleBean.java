@@ -1,6 +1,6 @@
 package com.br.emploeyes.bean;
 
-import com.br.emploeyes.model.Role;
+import com.br.emploeyes.model.Function;
 import static com.sun.faces.el.FacesCompositeELResolver.ELResolverChainType.Faces; 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -11,13 +11,13 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class RoleBean {
     
-    private Role role = new Role();
+    private Function role = new Function();
 
-    public Role getRole() {
+    public Function getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Function role) {
         this.role = role;
     }  
 }
