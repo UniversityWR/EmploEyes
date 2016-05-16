@@ -2,7 +2,6 @@ package com.br.emploeyes.bean;
 
 import com.br.emploeyes.dao.Dao;
 import com.br.emploeyes.model.Company;
-import com.br.emploeyes.model.Function;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -12,10 +11,8 @@ import javax.faces.bean.ViewScoped;
 public class CompanyBean implements Serializable {
 
     private Company company = new Company();
-    private Long idCompany = 0L;
-    private Long idRole = 0L;
-    private Long idUser = 0L;
-
+    private Long idCompany = 0L; 
+    
     public Long getIdCompany() {
         return idCompany;
     }
@@ -23,23 +20,7 @@ public class CompanyBean implements Serializable {
     public void setIdCompany(Long idCompany) {
         this.idCompany = idCompany;
     }
-
-    public Long getIdRole() {
-        return idRole;
-    }
-
-    public void setIdRole(Long idRole) {
-        this.idRole = idRole;
-    }
-
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
+ 
     public void init() {
         if (this.idCompany > 0) {
             Dao<Company> dao = Dao.newInstance();

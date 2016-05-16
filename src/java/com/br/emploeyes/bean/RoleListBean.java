@@ -1,13 +1,11 @@
 package com.br.emploeyes.bean;
 
 import com.br.emploeyes.dao.Dao;
-import com.br.emploeyes.model.Function;
-import com.br.emploeyes.model.Employee;
+import com.br.emploeyes.model.Function; 
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.RequestScoped; 
 
 @ManagedBean
 @RequestScoped
