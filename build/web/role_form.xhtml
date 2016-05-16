@@ -4,6 +4,14 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:metadata>
+        <f:viewParam name="idRole" value="#{roleBean.idRole}"/>
+        <f:viewParam name="idUser" value="#{roleBean.idUser}"/>   
+        <f:viewParam name="idUser" value="#{userBean.idUser}"/> 
+        <f:viewAction action="#{roleBean.init}" />
+    </f:metadata>
+
     <h:head>
         <title>Role Form</title>
     </h:head>
@@ -36,7 +44,7 @@
                             </b:row> 
                             <b:row>
                                 <b:column span="2" offset="0">
-                                    <b:commandButton value="saveRole" action="#{roleListBean.saveRole(roleBean.role, userBean.user)}" update="@form" look="primary"
+                                    <b:commandButton value="saveRole" action="#{roleBean.saveRole(roleBean.role, roleBean.idUser)}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column>  
                                 <b:column span="2" offset="2">
@@ -44,9 +52,9 @@
                                                      style="width:100%" rendered="#{empty companyListBean.getCompanyListByRole(roleBean.role)}" /> 
                                 </b:column> 
                             </b:row> 
-                            
+
                             <h:dataTable value="#{companyListBean.getCompanyListByRole(roleBean.role)}" var="company">
-                                 
+
                                 <h:column>
                                     <h:outputLabel value="#{company.name}"/><h:outputLabel value=" - "/>
                                     <h:outputLabel value="#{company.id}"/> 

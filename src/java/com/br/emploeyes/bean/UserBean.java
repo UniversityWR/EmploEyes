@@ -5,10 +5,11 @@ import com.br.emploeyes.model.Employee;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class UserBean {
 
     private Employee user = new Employee();
@@ -58,15 +59,21 @@ public class UserBean {
 
     public String createEmployee() {
         return "user_account";
-    }
-
-    public String addRole(Employee user) {
-        /* Remove/Clear the Managed Role from the ApplicationScoped*/
-        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().remove("roleBean");
-        return "role_form?faces-redirect=true&includeViewParams=true";
-    }
+    } 
 
     public String saveUser(Employee user) {
+        save(user);
+        this.setIdUser(user.getId());
+        return "index?faces-redirect=true&includeViewParams=true";
+    }
+    
+    public String addRole(Employee user) {
+        save(user);
+        this.setIdUser(user.getId());
+        return "role_form?faces-redirect=true&includeViewParams=true";
+    }
+    
+    private void save(Employee user) {
         Dao<Employee> dao = Dao.newInstance();
         Employee employee = dao.getById(Employee.class, this.idUser);
 
@@ -80,9 +87,8 @@ public class UserBean {
             employee.setPassword(user.getPassword());
 
             dao.save(employee);
-        }else { 
+        } else {
             dao.save(user);
         }
-        return "index?faces-redirect=true&includeViewParams=true";
     }
 }

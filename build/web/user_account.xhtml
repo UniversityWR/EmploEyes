@@ -3,13 +3,13 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
-    
-    
-  <f:metadata>
-      <f:viewParam name="idUser" value="#{userBean.idUser}"/>
-    <f:viewAction action="#{userBean.init}" />
-  </f:metadata>
-    
+
+    <f:metadata>
+        <f:viewParam name="idUser" value="#{userBean.idUser}"/>
+        <f:viewParam name="idUser" value="#{roleBean.idUser}"/>  
+        <f:viewAction action="#{userBean.init}" />
+    </f:metadata>
+
     <h:head>
         <title>User Account</title>
     </h:head>
@@ -21,7 +21,7 @@
                         <b:container class="container">
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="Name" required="false" id="name" value="#{userBean.user.name}"/>
+                                    <b:inputText placeholder="Name" required="true" id="name" value="#{userBean.user.name}"/>
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
@@ -41,12 +41,12 @@
                                 </b:column>  
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="E-mail" required="false" id="email" value="#{userBean.user.email}"/>
+                                    <b:inputText placeholder="E-mail" required="true" id="email" value="#{userBean.user.email}"/>
                                 </b:column>
                             </b:row>
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputSecret placeholder="Password" id="password" required="false" value="#{userBean.user.password}"/> 
+                                    <b:inputSecret placeholder="Password" id="password" required="true" value="#{userBean.user.password}"/> 
                                 </b:column> 
                             </b:row>
                             <b:row>
@@ -56,20 +56,46 @@
                                 </b:column> 
                             </b:row>
                             <b:row>
-                                <b:column span="2" offset="2">
-                                    <b:commandButton id="addRole" value="Add Role" action="#{userBean.addRole(userBean.user)}" look="secondary"
+                                <b:column> 
+                                    <h:outputLabel value=""/> 
+                                </b:column> 
+                                <b:column span="4" offset="0">
+                                    <b:commandButton id="addRole" value="Add Role" action="#{userBean.addRole(userBean.user)}" update="@form" look="secondary"
                                                      style="width:100%" />
                                 </b:column> 
-                            </b:row>
-                            
-                            <h:dataTable value="#{roleListBean.getRoleListByUserId(userBean.user.id)}" var="role">
-                                <h:column>
-                                    <h:outputLabel value="#{role.name}"/><h:outputLabel value=" - "/>
-                                    <h:outputLabel value="#{role.id}"/><h:outputLabel value=" - "/>
-                                    <h:outputLabel value="#{role.userId}"/>  <b:commandButton id="editRole" value="Edit Role" action="#{roleListBean.editRole(role.id)}" look="secondary"
-                                                     style="width:100%" />
-                                </h:column>
-                            </h:dataTable>
+                            </b:row>  
+                            <b:row>
+                                <b:column> 
+                                    <h:outputLabel value=""/> 
+                                </b:column> 
+                                <b:column> 
+                                    <h:outputLabel value="Cargos"
+                                                    rendered="#{not empty roleListBean.getRoleListByUserId(userBean.user.id)}" /> 
+                                </b:column> 
+                                <b:column span="4" offset="0">
+                                    <h:dataTable value="#{roleListBean.getRoleListByUserId(userBean.user.id)}" var="role" >
+                                        <h:column > 
+                                            <b:container class="container">
+                                                <b:row>
+                                                    <b:column span="6"> 
+                                                        <h:outputLabel value="#{role.name}"/>
+                                                    </b:column> 
+                                                </b:row>
+                                                <b:row>
+                                                    <b:column span="2">
+                                                        <b:commandButton id="editRole" value="Editar" action="#{roleBean.editRole(role.id)}" look="secondary"
+                                                                         style="width:100%" />
+                                                    </b:column>
+                                                    <b:column span="2">
+                                                        <b:commandButton id="deleteRole" value="Deletar" action="#{roleBean.removeRole(role.id)}" look="danger"
+                                                                         style="width:100%" />
+                                                    </b:column> 
+                                                </b:row>
+                                            </b:container>
+                                        </h:column>
+                                    </h:dataTable>
+                                </b:column> 
+                            </b:row>  
                         </b:container>
                     </h:form>
                 </b:column>
