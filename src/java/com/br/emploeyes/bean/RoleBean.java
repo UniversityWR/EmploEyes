@@ -96,7 +96,7 @@ public class RoleBean implements Serializable {
         role.setCompanyId(saveCompanyID);
         System.out.println("setCompanyId: " + saveCompanyID);
         save(role);
-        return "role_form?faces-redirect=true&includeViewParams=true";
+        return "user_account?faces-redirect=true&includeViewParams=true";
     }
 
     public String editRole(long id) {
