@@ -23,6 +23,9 @@
                                 <b:column medium-screen="4">
                                     <b:inputText placeholder="Name" required="true" id="name" value="#{userBean.user.name}"/>
                                 </b:column> 
+                                <b:column medium-screen="6">
+                                    <b:message for="name" />
+                                </b:column>
                             </b:row><b:row>
                                 <b:column medium-screen="4">
                                     <b:inputText placeholder="City" required="false" id="city" value="#{userBean.user.city}"/>
@@ -41,18 +44,30 @@
                                 </b:column>  
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="E-mail" required="true" id="email" value="#{userBean.user.email}"/>
+                                    <b:inputText placeholder="E-mail" required="false" id="email" value="#{userBean.user.email}"/>
+                                </b:column>
+                                <b:column medium-screen="6">
+                                    <b:message for="email" />
                                 </b:column>
                             </b:row>
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputSecret placeholder="Password" id="password" required="true" value="#{userBean.user.password}"/> 
+                                    <b:inputSecret placeholder="Password" id="password" required="false" value="#{userBean.user.password}"/> 
                                 </b:column> 
+                                <b:column medium-screen="6">
+                                    <b:message for="password" />
+                                </b:column>
                             </b:row>
                             <b:row>
                                 <b:column span="2" offset="0">
                                     <b:commandButton id="saveUser" value="saveUser" action="#{userBean.saveUser(userBean.user)}" update="@form" look="primary"
                                                      style="width:100%" />
+                                </b:column> 
+                                <b:column span="2" offset="0">
+                                    <b:commandButton id="cancel1" value="Cancel" action="#{userBean.login()}" update="@form" look="danger"
+                                                     style="width:100%" rendered="#{userBean.idUser == 0}" />
+                                    <b:commandButton id="cancel2" value="Cancel" action="#{userBean.searchList()}" update="@form" look="danger"
+                                                     style="width:100%" rendered="#{userBean.idUser > 0}" />
                                 </b:column> 
                             </b:row>
                             <b:row>
@@ -61,7 +76,7 @@
                                 </b:column> 
                                 <b:column span="4" offset="0">
                                     <b:commandButton id="addRole" value="Add Role" action="#{userBean.addRole(userBean.user)}" update="@form" look="secondary"
-                                                     style="width:100%" />
+                                                     style="width:100%" rendered="#{userBean.idUser > 0}" />
                                 </b:column> 
                             </b:row>  
                             <b:row>
@@ -70,7 +85,7 @@
                                 </b:column> 
                                 <b:column> 
                                     <h:outputLabel value="Cargos"
-                                                    rendered="#{not empty roleListBean.getRoleListByUserId(userBean.user.id)}" /> 
+                                                   rendered="#{not empty roleListBean.getRoleListByUserId(userBean.user.id)}" /> 
                                 </b:column> 
                                 <b:column span="4" offset="0">
                                     <h:dataTable value="#{roleListBean.getRoleListByUserId(userBean.user.id)}" var="role" >

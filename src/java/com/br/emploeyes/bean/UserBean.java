@@ -2,19 +2,18 @@ package com.br.emploeyes.bean;
 
 import com.br.emploeyes.dao.Dao;
 import com.br.emploeyes.model.Employee;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class UserBean {
+public class UserBean implements Serializable {
 
     private Employee user = new Employee();
     private Long idUser = 0L;
-
+ 
     public Long getIdUser() {
         return idUser;
     }
@@ -58,21 +57,28 @@ public class UserBean {
     }
 
     public String createEmployee() {
-        return "user_account";
-    } 
-
-    public String saveUser(Employee user) {
-        save(user);
-        this.setIdUser(user.getId());
-        return "index?faces-redirect=true&includeViewParams=true";
+        return "user_account?faces-redirect=true&includeViewParams=true";
     }
     
+    public String login() {
+        return "index?faces-redirect=true";
+    }
+
+     public String searchList() {
+        return "";
+    }
+    
+    public String saveUser(Employee user) {
+        save(user); 
+        return "user_account?faces-redirect=true&includeViewParams=true"; //return "index?faces-redirect=true&includeViewParams=true";
+    }
+
     public String addRole(Employee user) {
-        save(user);
-        this.setIdUser(user.getId());
+        save(user); 
+        this.setIdUser(idUser);
         return "role_form?faces-redirect=true&includeViewParams=true";
     }
-    
+
     private void save(Employee user) {
         Dao<Employee> dao = Dao.newInstance();
         Employee employee = dao.getById(Employee.class, this.idUser);
@@ -86,9 +92,11 @@ public class UserBean {
             employee.setEmail(user.getEmail());
             employee.setPassword(user.getPassword());
 
-            dao.save(employee);
+            Employee newEmployee = dao.save(employee);
+            this.setIdUser(newEmployee.getId());
         } else {
-            dao.save(user);
+            Employee newEmployee = dao.save(user);
+            this.setIdUser(newEmployee.getId());
         }
     }
 }

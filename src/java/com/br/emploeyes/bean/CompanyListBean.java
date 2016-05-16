@@ -1,16 +1,14 @@
 package com.br.emploeyes.bean;
 
 import com.br.emploeyes.model.Company;
-import com.br.emploeyes.model.Function;
-import com.br.emploeyes.model.Employee;
+import com.br.emploeyes.model.Function; 
 import java.util.ArrayList;
-import java.util.List;
-import javax.faces.bean.ApplicationScoped;
+import java.util.List; 
 import javax.faces.bean.ManagedBean; 
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ViewScoped; 
  
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 public class CompanyListBean {
     
     private List<Company> companyList = new ArrayList<>(); 
@@ -38,7 +36,8 @@ public class CompanyListBean {
         role.setCompanyId(company.getId());
         companyList.add(company);
         return "role_form?faces-redirect=true";
-    }   
+    } 
+    
     public String openCompanyForm(Function role){   
         return "company_form?faces-redirect=true";
     }

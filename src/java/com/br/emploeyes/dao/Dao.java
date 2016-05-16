@@ -25,13 +25,14 @@ public class Dao<T> {
         return q.getResultList();
     }
 
-    public void save(T object) {
+    public T save(T object) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-        em.merge(object);
+        T newObject = em.merge(object);
         tx.commit();
         em.close();
+        return newObject;
     }
 
     public void delete(Class<T> clazz, long id) {
