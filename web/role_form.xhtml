@@ -24,7 +24,7 @@
                         <b:container class="container">
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="Name" required="true" id="name" value="#{roleBean.role.name}"/>
+                                    <b:inputText placeholder="Name" required="false" id="name" value="#{roleBean.role.name}"/>
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
@@ -36,57 +36,74 @@
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="Salary" required="true" id="salary" value="#{roleBean.role.salary}"/>
+                                    <b:inputText placeholder="Salary" required="false" id="salary" value="#{roleBean.role.salary}">
+                                        <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                                    </b:inputText>
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
                                     <b:inputText placeholder="Feedback" required="false" id="feedback" value="#{roleBean.role.feedback}"/>
                                 </b:column>  
-                            </b:row> 
-
+                            </b:row>   
                             <b:row>
                                 <b:column> 
                                     <h:outputLabel value="Company"/> 
                                 </b:column> 
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="4">
-                                    <b:inputText placeholder="Name" required="true" id="company_name" value="#{roleBean.company.name}"/>
-                                </b:column> 
-                            </b:row><b:row>
-                                <b:column medium-screen="4">
-                                    <b:inputText placeholder="City" required="false" id="company_city" value="#{roleBean.company.city}"/>
-                                </b:column> 
-                            </b:row><b:row>
-                                <b:column medium-screen="4">
-                                    <b:inputText placeholder="State" required="false" id="company_state" value="#{roleBean.company.state}"/>
-                                </b:column> 
-                            </b:row><b:row>
-                                <b:column medium-screen="4">
-                                    <b:inputText placeholder="Country" required="false" id="company_country" value="#{roleBean.company.country}"/>
-                                </b:column> 
-                            </b:row><b:row>
-                                <b:column medium-screen="4">
-                                    <b:inputText placeholder="Branch" required="true" id="company_branch" value="#{roleBean.company.branch}"/>
-                                </b:column>  
-                            </b:row><b:row>
-                                <b:column medium-screen="4">
-                                    <b:inputText placeholder="Description" required="false" id="company_description" value="#{roleBean.company.description}"/>
-                                </b:column>
                             </b:row> 
-
                             <b:row>
-                                <b:column span="2" offset="0">
-                                    <b:commandButton value="Save" action="#{roleBean.saveRole(roleBean.role, roleBean.idUser, companyBean)}" update="@form" look="primary"
-                                                     style="width:100%" />
+                                <b:selectOneMenu span="2" value="#{roleBean.idCompany}" rendered="#{not roleBean.shouldCreateCompany}">
+                                    <f:selectItems value="#{companyListBean.getCompanyList()}" var="c"
+                                                   itemLabel="#{c.name}" itemValue="#{c.id}" />  
+                                </b:selectOneMenu> 
+                                <b:column span="2" > 
+                                    <b:commandButton id="createCompany" value="#{roleBean.shouldCreateCompany == false ? 'Create new':'Choose one'}" 
+                                                     action="#{roleBean.setShouldCreateCompany(roleBean.shouldCreateCompany == false ? true:false)}" update="@form" look="primary"
+                                                     style="width:100%"/>  
                                 </b:column> 
-                                <b:column span="2" offset="0">
-                                    <b:commandButton id="cancel1" value="Cancel" action="#{roleBean.cancel()}" update="@form" look="danger"
-                                                     style="width:100%"/> 
+                            </b:row>
+                            <b:row>
+                                <b:column> 
+                                    <h:outputLabel value=""/> 
                                 </b:column> 
-                            </b:row>  
-                        </b:container>
+                            </b:row> 
+                            <b:container rendered="#{roleBean.shouldCreateCompany}">
+                                <b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="Name" required="false" id="company_name" value="#{roleBean.company.name}"/>
+                                    </b:column> 
+                                </b:row><b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="City" required="false" id="company_city" value="#{roleBean.company.city}"/>
+                                    </b:column> 
+                                </b:row><b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="State" required="false" id="company_state" value="#{roleBean.company.state}"/>
+                                    </b:column> 
+                                </b:row><b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="Country" required="false" id="company_country" value="#{roleBean.company.country}"/>
+                                    </b:column> 
+                                </b:row><b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="Branch" required="false" id="company_branch" value="#{roleBean.company.branch}"/>
+                                    </b:column>  
+                                </b:row><b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="Description" required="false" id="company_description" value="#{roleBean.company.description}"/>
+                                    </b:column>
+                                </b:row>  
+                            </b:container>
+                                <b:row>
+                                    <b:column span="2" offset="0">
+                                        <b:commandButton value="Save" action="#{roleBean.saveRole(roleBean.role, roleBean.idUser, companyBean)}" update="@form" look="primary"
+                                                         style="width:100%" />
+                                    </b:column> 
+                                    <b:column span="2" offset="0">
+                                        <b:commandButton id="cancel1" value="Cancel" action="#{roleBean.cancel()}" update="@form" look="danger"
+                                                         style="width:100%"/> 
+                                    </b:column> 
+                                </b:row>   
+                            </b:container>
                     </h:form>
                 </b:column>
             </b:row>

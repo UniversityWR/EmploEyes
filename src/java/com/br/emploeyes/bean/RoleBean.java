@@ -1,11 +1,11 @@
 package com.br.emploeyes.bean;
 
 import com.br.emploeyes.dao.Dao;
-import com.br.emploeyes.model.Company; 
+import com.br.emploeyes.model.Company;
 import com.br.emploeyes.model.Function;
-import java.io.Serializable; 
-import javax.faces.bean.ManagedBean; 
-import javax.faces.bean.ViewScoped; 
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
@@ -16,6 +16,7 @@ public class RoleBean implements Serializable {
     private Long idRole = 0L;
     private Long idUser = 0L;
     private Long idCompany = 0L;
+    private boolean shouldCreateCompany;
 
     public Long getIdCompany() {
         return idCompany;
@@ -39,6 +40,14 @@ public class RoleBean implements Serializable {
 
     public void setIdRole(Long idRole) {
         this.idRole = idRole;
+    }
+
+    public boolean isShouldCreateCompany() {
+        return shouldCreateCompany;
+    }
+
+    public void setShouldCreateCompany(boolean shouldCreateCompany) {
+        this.shouldCreateCompany = shouldCreateCompany;
     }
 
     public Function getRole() {
@@ -84,10 +93,13 @@ public class RoleBean implements Serializable {
     }
 
     public String saveRole(Function role, Long idUser, CompanyBean companyBean) {
-        Long saveCompanyID = companyBean.saveCompany(this.getCompany());
+        if (shouldCreateCompany) {
+            Long saveCompanyID = companyBean.saveCompany(this.getCompany());
+            role.setCompanyId(saveCompanyID);
+        } else {
+            role.setCompanyId(this.getIdCompany());
+        }
         this.setIdUser(idUser);
-        role.setCompanyId(saveCompanyID);
-        System.out.println("setCompanyId: " + saveCompanyID);
         save(role);
         return "user_account?faces-redirect=true&includeViewParams=true";
     }

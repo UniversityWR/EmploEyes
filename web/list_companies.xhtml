@@ -35,12 +35,9 @@
                                     <h:dataTable value="#{companyListBean.getCompanyListByName()}" var="company" >
                                         <h:column > 
                                             <b:container class="container">
-                                                <b:row>
-                                                    <b:column span="2"> 
-                                                        <h:outputLabel value="#{company.name}"/>
-                                                    </b:column>  
-                                                    <b:column span="2">
-                                                        <b:commandButton id="showRoles" value="Mostrar Cargos" action="#{companyListBean.getFunctionListByCompanyId(company.id)}" look="secondary"
+                                                <b:row> 
+                                                    <b:column span="4">
+                                                        <b:commandButton id="showRoles" value="#{company.name}" action="#{companyListBean.getFunctionListByCompanyId(company.id)}" look="secondary"
                                                                          style="width:100%" />
                                                     </b:column> 
                                                 </b:row> 
@@ -69,6 +66,23 @@
                                                         <h:outputLabel value="#{function.name}"/>
                                                     </b:column>   
                                                 </b:row>  
+                                                <b:row>
+                                                    <b:column span="2"> 
+                                                        <h:outputLabel value=" Start:&#160;"/><h:outputLabel value="#{function.startYear}"/> 
+                                                        <h:outputLabel value="&#160;/&#160;"/> 
+                                                        <h:outputLabel value=" End:&#160;"/><h:outputLabel value="#{function.endYear}"/>
+                                                    </b:column>  
+                                                    <b:column span="2" offset="0">  
+                                                        <h:outputLabel value=" Salary:&#160;"/>  <h:outputLabel value="#{function.salary}">
+                                                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+                                                        </h:outputLabel>  
+                                                    </b:column>   
+                                                </b:row> 
+                                                <b:row>
+                                                    <b:column span="2"> 
+                                                        <h:outputLabel value="#{function.feedback}"/>
+                                                    </b:column>   
+                                                </b:row> 
                                             </b:container>
                                         </h:column>
                                     </h:dataTable>
