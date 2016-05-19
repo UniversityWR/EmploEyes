@@ -2,31 +2,25 @@ package com.br.emploeyes.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction; 
+import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-public class Dao<T> {
+public class GenericDao<T> {
 
-    private static Dao sDao = null;
+    private final Class<T> persistedClass;
 
-    private Dao() {
+    public GenericDao(Class<T> persistedClass) {
+        this.persistedClass = persistedClass;
     }
 
-    public static Dao newInstance() {
-        if (sDao == null) {
-            sDao = new Dao();
-        }
-        return sDao;
-    }
-
-    public List<T> getAll(Class<T> clazz) { 
+    public List<T> getAll() {
         EntityManager entityManager = null;
         try {
             entityManager = JPAUtil.getEntityManager();
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<T> query = builder.createQuery(clazz);
-            query.from(clazz);
+            CriteriaQuery<T> query = builder.createQuery(persistedClass);
+            query.from(persistedClass);
             return entityManager.createQuery(query).getResultList();
         } finally {
             if (entityManager != null) {
@@ -52,13 +46,13 @@ public class Dao<T> {
         }
     }
 
-    public void delete(Class<T> clazz, long id) {
+    public void delete(long id) {
         EntityManager entityManager = null;
         try {
             entityManager = JPAUtil.getEntityManager();
             EntityTransaction tx = entityManager.getTransaction();
             tx.begin();
-            T object = entityManager.getReference(clazz, id);
+            T object = entityManager.getReference(persistedClass, id);
             entityManager.remove(object);
             entityManager.flush();
             tx.commit();
@@ -69,8 +63,8 @@ public class Dao<T> {
         }
     }
 
-    public T getById(Class<T> clazz, long id) {
+    public T getById(long id) {
         EntityManager em = JPAUtil.getEntityManager();
-        return em.find(clazz, id);
+        return em.find(persistedClass, id);
     }
 }

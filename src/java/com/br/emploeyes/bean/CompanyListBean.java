@@ -1,6 +1,6 @@
 package com.br.emploeyes.bean;
 
-import com.br.emploeyes.dao.Dao;
+import com.br.emploeyes.dao.GenericDao;
 import com.br.emploeyes.model.Company;
 import com.br.emploeyes.model.Function;
 import java.io.Serializable;
@@ -33,19 +33,19 @@ public class CompanyListBean implements Serializable {
     }
 
     public List<Company> getCompanyList() {
-        Dao<Company> dao = Dao.newInstance();
-        return dao.getAll(Company.class);
-    }
-    
-    public Company getCompanyById(Long id){
-        Dao<Company> dao = Dao.newInstance();
-        if(id == null){
-            return null;
-        }
-        return dao.getById(Company.class,id);                
+        GenericDao<Company> dao = new GenericDao<>(Company.class);
+        return dao.getAll();
     }
 
-    public List<Company> getCompanyListByName() { 
+    public Company getCompanyById(Long id) {
+        GenericDao<Company> dao = new GenericDao<>(Company.class);
+        if (id == null) {
+            return null;
+        }
+        return dao.getById(id);
+    }
+
+    public List<Company> getCompanyListByName() {
         if (getSearchName() != null && !getSearchName().equals("")) {
             List<Company> newCompanyList = new ArrayList<>();
             newCompanyList.clear();
@@ -62,10 +62,10 @@ public class CompanyListBean implements Serializable {
 
     public List<Function> getFunctionListByCompanyId(long companyId) {
         this.setSearchId(companyId);
-        Dao<Function> dao = Dao.newInstance();
+        GenericDao<Function> dao = new GenericDao<>(Function.class);
 
-        List<Function> allFuntions = dao.getAll(Function.class);
-        
+        List<Function> allFuntions = dao.getAll();
+
         List<Function> newFunctionList = new ArrayList<>();
         newFunctionList.clear();
         for (Function function : allFuntions) {

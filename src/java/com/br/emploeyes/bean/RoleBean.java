@@ -1,6 +1,6 @@
 package com.br.emploeyes.bean;
 
-import com.br.emploeyes.dao.Dao;
+import com.br.emploeyes.dao.GenericDao;
 import com.br.emploeyes.model.Company;
 import com.br.emploeyes.model.Function;
 import java.io.Serializable;
@@ -68,13 +68,13 @@ public class RoleBean implements Serializable {
 
     public void init() {
         if (this.idRole > 0) {
-            Dao<Function> dao = Dao.newInstance();
-            this.setRole(dao.getById(Function.class, this.idRole));
+            GenericDao<Function> dao = new GenericDao<>(Function.class);
+            this.setRole(dao.getById(this.idRole));
             this.setIdCompany(this.getRole().getCompanyId());
             if (this.idCompany > 0) {
                 this.getRole().setCompanyId(this.idCompany);
-                Dao<Company> daocompany = Dao.newInstance();
-                this.setCompany(daocompany.getById(Company.class, this.idCompany));
+                GenericDao<Company> daocompany = new GenericDao<>(Company.class);
+                this.setCompany(daocompany.getById(this.idCompany));
             }
         }
     }
@@ -110,14 +110,14 @@ public class RoleBean implements Serializable {
     }
 
     public String removeRole(long id) {
-        Dao<Function> dao = Dao.newInstance();
-        dao.delete(Function.class, id);
+        GenericDao<Function> dao = new GenericDao<>(Function.class);
+        dao.delete(id);
         return "";
     }
 
     private void save(Function formRole) {
-        Dao<Function> dao = Dao.newInstance();
-        Function function = dao.getById(Function.class, this.idRole);
+        GenericDao<Function> dao = new GenericDao<>(Function.class);
+        Function function = dao.getById(this.idRole);
 
         if (function != null) {
             function.setName(formRole.getName());

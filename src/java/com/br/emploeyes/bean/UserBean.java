@@ -1,6 +1,7 @@
 package com.br.emploeyes.bean;
 
-import com.br.emploeyes.dao.Dao;
+import com.br.emploeyes.dao.GenericDao;
+import com.br.emploeyes.model.Company;
 import com.br.emploeyes.model.Employee;
 import java.io.Serializable;
 import java.util.List;
@@ -32,15 +33,15 @@ public class UserBean implements Serializable {
 
     public void init() {
         if (this.idUser > 0) {
-            Dao<Employee> dao = Dao.newInstance();
-            this.setUser(dao.getById(Employee.class, this.idUser));
+            GenericDao<Employee> dao = new GenericDao<>(Employee.class);
+            this.setUser(dao.getById(this.idUser));
         }
     }
 
     public String validateLogin() {
 
-        Dao<Employee> dao = Dao.newInstance();
-        List<Employee> users = dao.getAll(Employee.class);
+        GenericDao<Employee> dao = new GenericDao<>(Employee.class);
+        List<Employee> users = dao.getAll();
         try {
             for (Employee u : users) {
                 if (u.getEmail().equals(this.getUser().getEmail())
@@ -80,8 +81,8 @@ public class UserBean implements Serializable {
     }
 
     private void save(Employee user) {
-        Dao<Employee> dao = Dao.newInstance();
-        Employee employee = dao.getById(Employee.class, this.idUser);
+        GenericDao<Employee> dao = new GenericDao<>(Employee.class);
+        Employee employee = dao.getById(this.idUser);
 
         if (employee != null) {
             employee.setName(user.getName());

@@ -1,12 +1,12 @@
 package com.br.emploeyes.model;
 
-import java.io.Serializable; 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Employee implements Serializable  {
+public class Employee implements Serializable { 
     
     @Id
     @GeneratedValue
@@ -18,7 +18,7 @@ public class Employee implements Serializable  {
     private String province;
     private String country;
     private String password;
-   
+
     public Employee() {
     }
 

@@ -1,6 +1,6 @@
 package com.br.emploeyes.bean;
 
-import com.br.emploeyes.dao.Dao;
+import com.br.emploeyes.dao.GenericDao;
 import com.br.emploeyes.model.Function; 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import javax.faces.bean.RequestScoped;
 public class RoleListBean { 
     
     public List<Function> getRoleList() {
-        Dao<Function> dao = Dao.newInstance();
-        return dao.getAll(Function.class);
+        GenericDao<Function> dao = new GenericDao<>(Function.class);
+        return dao.getAll();
     }
 
     public List<Function> getRoleListByUserId(long id) {

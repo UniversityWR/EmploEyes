@@ -1,6 +1,6 @@
 package com.br.emploeyes.bean;
 
-import com.br.emploeyes.dao.Dao;
+import com.br.emploeyes.dao.GenericDao;
 import com.br.emploeyes.model.Company;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
@@ -23,8 +23,8 @@ public class CompanyBean implements Serializable {
  
     public void init() {
         if (this.idCompany > 0) {
-            Dao<Company> dao = Dao.newInstance();
-            this.setCompany(dao.getById(Company.class, this.idCompany));
+            GenericDao<Company> dao = new GenericDao<>(Company.class);
+            this.setCompany(dao.getById(this.idCompany));
         }
     }
 
@@ -51,8 +51,8 @@ public class CompanyBean implements Serializable {
     }
 
     private void save(Company formCompany) {
-        Dao<Company> dao = Dao.newInstance();
-        Company company = dao.getById(Company.class, this.idCompany);
+        GenericDao<Company> dao = new GenericDao<>(Company.class);
+        Company company = dao.getById(this.idCompany);
 
         if (company != null) {
             company.setName(formCompany.getName());
