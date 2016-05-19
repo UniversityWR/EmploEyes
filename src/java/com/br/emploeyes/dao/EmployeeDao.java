@@ -15,8 +15,7 @@ public class EmployeeDao extends GenericDao<Employee> {
 
         try {
             entityManager = JPAUtil.getEntityManager();
-
-            Query q = entityManager.createQuery("from Usuario a WHERE a.email=:email AND a.password=FUNC('sha1', :password)", Employee.class);
+            Query q = entityManager.createQuery("from Employee a WHERE a.email=:email AND a.password=FUNC('sha1', :password)", Employee.class);
             q.setParameter("email", email);
             q.setParameter("password", password);
 

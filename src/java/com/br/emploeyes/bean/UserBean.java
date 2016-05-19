@@ -1,20 +1,25 @@
 package com.br.emploeyes.bean;
 
+import com.br.emploeyes.dao.EmployeeDao;
 import com.br.emploeyes.dao.GenericDao;
-import com.br.emploeyes.model.Company;
 import com.br.emploeyes.model.Employee;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
 public class UserBean implements Serializable {
 
     private Employee user = new Employee();
+    private String email;
+    private String password;
     private Long idUser = 0L;
- 
+
     public Long getIdUser() {
         return idUser;
     }
@@ -31,6 +36,22 @@ public class UserBean implements Serializable {
         this.user = user;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void init() {
         if (this.idUser > 0) {
             GenericDao<Employee> dao = new GenericDao<>(Employee.class);
@@ -38,44 +59,62 @@ public class UserBean implements Serializable {
         }
     }
 
-    public String validateLogin() {
+    public String login() throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
 
-        GenericDao<Employee> dao = new GenericDao<>(Employee.class);
-        List<Employee> users = dao.getAll();
-        try {
-            for (Employee u : users) {
-                if (u.getEmail().equals(this.getUser().getEmail())
-                        && u.getPassword().equals(this.getUser().getPassword())) {
+        EmployeeDao dao = new EmployeeDao();
+        Employee user = dao.getUser(email, password);
+        if (user != null) {
+            externalContext.getSessionMap().put("user", user);
+            this.setIdUser(user.getId());
+            return "user_account?faces-redirect=true&includeViewParams=true";
+        } else {
+//            ResourceBundle bundle = ResourceBundle.getBundle(
+//                    "edu.bundles.MessageBundle",
+//                    context.getViewRoot().getLocale());
+//
+//            context.addMessage(null, new FacesMessage(bundle.getString("error.loginfailed.message")));
 
-                    this.setIdUser(u.getId());
-                    return "user_account?faces-redirect=true&includeViewParams=true";
-                }
-            }
-        } catch (ClassCastException e) {
-
+            context.addMessage(null, new FacesMessage("Login failed"));
+            return "/index";
         }
-        return null;
+    }
+
+    public String logout() throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.invalidateSession();
+
+        return "/index?faces-redirect=true";
     }
 
     public String createEmployee() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        externalContext.getSessionMap().put("user", null);
         return "user_account?faces-redirect=true&includeViewParams=true";
     }
-    
-    public String login() {
+
+    public String loginPage() {
         return "index?faces-redirect=true";
     }
 
-     public String searchList() {
-        return "";
+    public String searchList() {
+        return "list_companies?faces-redirect=true";
     }
-    
+
     public String saveUser(Employee user) {
-        save(user); 
-        return "user_account?faces-redirect=true&includeViewParams=true"; //return "index?faces-redirect=true&includeViewParams=true";
+        save(user);
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        externalContext.getSessionMap().put("user", user);
+        
+        return "user_account?faces-redirect=true&includeViewParams=true";
     }
 
     public String addRole(Employee user) {
-        save(user); 
+        save(user);
         this.setIdUser(idUser);
         return "role_form?faces-redirect=true&includeViewParams=true";
     }

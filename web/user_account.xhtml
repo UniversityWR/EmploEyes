@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition  template="/WEB-INF/template.xhtml"
+                 xmlns:b="http://bootsfaces.net/ui"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <f:metadata>
-        <f:viewParam name="idUser" value="#{userBean.idUser}"/>
+        <f:viewParam name="idUser" value="#{userBean.idUser}"/> 
         <f:viewParam name="idUser" value="#{roleBean.idUser}"/>  
         <f:viewAction action="#{userBean.init}" />
     </f:metadata>
+    <ui:param name="userParam" value="#{user == null? userBean.user: user}"/>  
 
-    <h:head>
-        <title>User Account</title>
-    </h:head>
-    <h:body>
+    <ui:define name="title">
+        User Account   
+    </ui:define>
+    <ui:define name="content">
         <b:container>
             <b:row>
                 <b:column>
@@ -21,30 +23,30 @@
                         <b:container class="container">
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="Name" required="true" id="name" value="#{userBean.user.name}"/>
+                                    <b:inputText placeholder="Name" required="false" id="name" value="#{userParam.name}"/>
                                 </b:column> 
                                 <b:column medium-screen="6">
                                     <b:message for="name" />
                                 </b:column>
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="City" required="false" id="city" value="#{userBean.user.city}"/>
+                                    <b:inputText placeholder="City" required="false" id="city" value="#{userParam.city}"/>
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="State" required="false" id="state" value="#{userBean.user.state}"/>
+                                    <b:inputText placeholder="State" required="false" id="state" value="#{userParam.state}"/>
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="Country" required="false" id="country" value="#{userBean.user.country}"/>
+                                    <b:inputText placeholder="Country" required="false" id="country" value="#{userParam.country}"/>
                                 </b:column> 
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="Years Old" required="false" id="yearOld" value="#{userBean.user.yearOld}"/>
+                                    <b:inputText placeholder="Years Old" required="false" id="yearOld" value="#{userParam.yearOld}"/>
                                 </b:column>  
                             </b:row><b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="E-mail" required="false" id="email" value="#{userBean.user.email}"/>
+                                    <b:inputText placeholder="E-mail" required="false" id="email" value="#{userParam.email}"/>
                                 </b:column>
                                 <b:column medium-screen="6">
                                     <b:message for="email" />
@@ -52,7 +54,7 @@
                             </b:row>
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputSecret placeholder="Password" id="password" required="false" value="#{userBean.user.password}"/> 
+                                    <b:inputSecret placeholder="Password" id="password" required="false" value="#{userParam.password}"/> 
                                 </b:column> 
                                 <b:column medium-screen="6">
                                     <b:message for="password" />
@@ -60,14 +62,14 @@
                             </b:row>
                             <b:row>
                                 <b:column span="2" offset="0">
-                                    <b:commandButton id="saveUser" value="saveUser" action="#{userBean.saveUser(userBean.user)}" update="@form" look="primary"
+                                    <b:commandButton id="saveUser" value="saveUser" action="#{userBean.saveUser(userParam)}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column> 
                                 <b:column span="2" offset="0">
-                                    <b:commandButton id="cancel1" value="Cancel" action="#{userBean.login()}" update="@form" look="danger"
-                                                     style="width:100%" rendered="#{userBean.idUser == 0}" />
+                                    <b:commandButton id="cancel1" value="Cancel" action="#{userBean.loginPage()}" update="@form" look="danger"
+                                                     style="width:100%" rendered="#{ userBean.idUser == 0}" />
                                     <b:commandButton id="cancel2" value="Cancel" action="#{userBean.searchList()}" update="@form" look="danger"
-                                                     style="width:100%" rendered="#{userBean.idUser > 0}" />
+                                                     style="width:100%" rendered="#{ userBean.idUser > 0}" />
                                 </b:column> 
                             </b:row>
                             <b:row>
@@ -75,8 +77,8 @@
                                     <h:outputLabel value=""/> 
                                 </b:column> 
                                 <b:column span="4" offset="0">
-                                    <b:commandButton id="addRole" value="Add Role" action="#{userBean.addRole(userBean.user)}" update="@form" look="secondary"
-                                                     style="width:100%" rendered="#{userBean.idUser > 0}" />
+                                    <b:commandButton id="addRole" value="Add Role" action="#{userBean.addRole(userParam)}" update="@form" look="secondary"
+                                                     style="width:100%" rendered="#{ userBean.idUser > 0}" />
                                 </b:column> 
                             </b:row>  
                             <b:row>
@@ -85,10 +87,10 @@
                                 </b:column> 
                                 <b:column> 
                                     <h:outputLabel value="Cargos"
-                                                   rendered="#{not empty roleListBean.getRoleListByUserId(userBean.user.id)}" /> 
+                                                   rendered="#{not empty roleListBean.getRoleListByUserId(userParam.id)}" /> 
                                 </b:column> 
                                 <b:column span="4" offset="0">
-                                    <h:dataTable value="#{roleListBean.getRoleListByUserId(userBean.user.id)}" var="role" >
+                                    <h:dataTable value="#{roleListBean.getRoleListByUserId(userParam.id)}" var="role" >
                                         <h:column > 
                                             <b:container class="container">
                                                 <b:row>
@@ -115,6 +117,6 @@
                     </h:form>
                 </b:column>
             </b:row>
-        </b:container>
-    </h:body>
-</html>
+        </b:container> 
+    </ui:define>
+</ui:composition >

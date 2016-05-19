@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition  template="/WEB-INF/template.xhtml"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
-
-    <h:head>
-        <title>Companies List</title>
-    </h:head>
-    <h:body>
+ 
+    <ui:define name="title">
+       Companies List  
+    </ui:define>
+    <ui:define name="content">
         <b:container fluid="true"> 
             <b:row>
                 <b:column>   
@@ -38,8 +38,8 @@
                                                 <b:container>
                                                     <b:row> 
                                                         <b:column span="4">
-                                                            <b:commandButton id="showRoles" value="#{company.name}" 
-                                                                             action="#{companyListBean.getFunctionListByCompanyId(company.id)}" look="secondary"
+                                                            <b:commandButton id="showRoles" value="#{company.name}" action="#{companyListBean.setSearchId(company.id)}"
+                                                                               look="secondary"
                                                                              style="width:100%" >
                                                             </b:commandButton>
                                                         </b:column> 
@@ -55,7 +55,7 @@
                                     </b:column> 
                                 </b:row>  
                             </b:column>
-                            <b:column span="4" offset="0" rendered="#{companyListBean.searchId > 0}">
+                            <b:column span="6" offset="2" rendered="#{companyListBean.searchId > 0}">
                                 <b:row>
                                     <b:column span="6" >  
                                         <ui:param name="companyParam" value="#{companyListBean.getCompanyById(companyListBean.searchId)}"/> 
@@ -81,7 +81,7 @@
                                                   style="width:100%" 
                                                   value="#{companyListBean.getFunctionListByCompanyId(companyListBean.searchId)}" var="function" 
                                                   rendered="#{companyListBean.searchId > 0}"> 
-                                        <b:column span="2"> 
+                                        <b:column span="6"> 
                                             <f:facet name="header">
                                                 <h:outputText value="Role" />
                                             </f:facet> 
@@ -96,7 +96,7 @@
                                                     <h:outputLabel value="&#160;/&#160;"/> 
                                                     <h:outputLabel value=" End:&#160;"/><h:outputText value="#{function.endYear}"/>
                                                 </b:column>  
-                                                <b:column span="4" offset="0">  
+                                                <b:column span="6" offset="0">  
                                                     <h:outputLabel value=" Salary:&#160;"/>  <h:outputText value="#{function.salary}">
                                                         <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
                                                     </h:outputText>  
@@ -118,5 +118,5 @@
                 </b:column>
             </b:row> 
         </b:container>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition >

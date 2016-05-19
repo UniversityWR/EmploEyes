@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Login</title>
-    </h:head>
-    <h:body>
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
+    <ui:define name="title">
+        Login   
+    </ui:define>
+    <ui:define name="content">
         <b:container>
             <b:row>
                 <b:column>
@@ -14,7 +15,7 @@
                         <b:container class="container">
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputText placeholder="E-mail" required="false" id="email" value="#{userBean.user.email}">
+                                    <b:inputText placeholder="E-mail" required="false" id="email" value="#{userBean.email}">
                                         <f:facet name="prepend">
                                             <b:icon name="user" />
                                         </f:facet>
@@ -26,7 +27,7 @@
                             </b:row>
                             <b:row>
                                 <b:column medium-screen="4">
-                                    <b:inputSecret placeholder="Password" id="password" value="#{userBean.user.password}">
+                                    <b:inputSecret placeholder="Password" id="password" value="#{userBean.password}">
                                         <f:facet name="prepend">
                                             <b:iconAwesome name="key" />
                                         </f:facet>
@@ -36,9 +37,12 @@
                                     <b:message for="password" />
                                 </b:column>
                             </b:row>
+
+                            <h:messages styleClass="errorMessage" />   
+
                             <b:row>
                                 <b:column span="2" offset="0">
-                                    <b:commandButton value="login" action="#{userBean.validateLogin()}" update="@form" look="primary"
+                                    <b:commandButton value="login" action="#{userBean.login()}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column>
                                 <b:column span="2">
@@ -46,7 +50,7 @@
                                                      look="danger" style="width:100%" />
                                 </b:column>
                             </b:row>
-                            
+
                             <b:row>
                                 <b:column> 
                                     <h:outputLabel value=""/> 
@@ -63,5 +67,5 @@
                 </b:column>
             </b:row>
         </b:container>
-    </h:body>
-</html>
+    </ui:define> 
+</ui:composition>
