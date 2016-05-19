@@ -55,7 +55,7 @@
                                     </b:column> 
                                 </b:row>  
                             </b:column>
-                            <b:column span="4" offset="0" >
+                            <b:column span="4" offset="0" rendered="#{companyListBean.searchId > 0}">
                                 <b:row>
                                     <b:column span="6" >  
                                         <ui:param name="companyParam" value="#{companyListBean.getCompanyById(companyListBean.searchId)}"/> 
