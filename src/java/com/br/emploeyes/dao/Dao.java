@@ -1,9 +1,10 @@
 package com.br.emploeyes.dao;
- 
+
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.EntityTransaction; 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 public class Dao<T> {
 
@@ -13,36 +14,59 @@ public class Dao<T> {
     }
 
     public static Dao newInstance() {
-        if(sDao == null){
+        if (sDao == null) {
             sDao = new Dao();
-        } 
+        }
         return sDao;
     }
 
-    public List<T> getAll(Class<T> clazz) {
-        EntityManager em = JPAUtil.getEntityManager();
-        Query q = em.createQuery("select a from "+clazz.getName()+" a", clazz);
-        return q.getResultList();
+    public List<T> getAll(Class<T> clazz) { 
+        EntityManager entityManager = null;
+        try {
+            entityManager = JPAUtil.getEntityManager();
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> query = builder.createQuery(clazz);
+            query.from(clazz);
+            return entityManager.createQuery(query).getResultList();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
     }
 
     public T save(T object) {
-        EntityManager em = JPAUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        T newObject = em.merge(object);
-        tx.commit();
-        em.close();
-        return newObject;
+        EntityManager entityManager = null;
+        try {
+            entityManager = JPAUtil.getEntityManager();
+            EntityTransaction tx = entityManager.getTransaction();
+            tx.begin();
+            T newObject = entityManager.merge(object);
+            entityManager.flush();
+            tx.commit();
+            return newObject;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
     }
 
     public void delete(Class<T> clazz, long id) {
-        EntityManager em = JPAUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        T object = em.getReference(clazz, id);
-        em.remove(object);
-        tx.commit();
-        em.close();
+        EntityManager entityManager = null;
+        try {
+            entityManager = JPAUtil.getEntityManager();
+            EntityTransaction tx = entityManager.getTransaction();
+            tx.begin();
+            T object = entityManager.getReference(clazz, id);
+            entityManager.remove(object);
+            entityManager.flush();
+            tx.commit();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
     }
 
     public T getById(Class<T> clazz, long id) {
