@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
 
     <h:head>
         <title>Companies List</title>
@@ -37,8 +38,10 @@
                                                 <b:container>
                                                     <b:row> 
                                                         <b:column span="4">
-                                                            <b:commandButton id="showRoles" value="#{company.name}" action="#{companyListBean.getFunctionListByCompanyId(company.id)}" look="secondary"
-                                                                             style="width:100%" />
+                                                            <b:commandButton id="showRoles" value="#{company.name}" 
+                                                                             action="#{companyListBean.getFunctionListByCompanyId(company.id)}" look="secondary"
+                                                                             style="width:100%" >
+                                                            </b:commandButton>
                                                         </b:column> 
                                                     </b:row> 
                                                     <b:row>
@@ -53,6 +56,23 @@
                                 </b:row>  
                             </b:column>
                             <b:column span="4" offset="0" >
+                                <b:row>
+                                    <b:column span="6" >  
+                                        <ui:param name="companyParam" value="#{companyListBean.getCompanyById(companyListBean.searchId)}"/> 
+                                        <b:row>
+                                            <h:outputLabel value="Company informations"/>  
+                                        </b:row>
+                                        <b:row>
+                                            <h:outputLabel value="Company:&#160;"/><h:outputText value="#{companyParam.name}"/>  
+                                        </b:row>
+                                        <b:row>
+                                            <h:outputLabel value="Site:&#160;"/><h:outputText value="#{companyParam.site}"/> 
+                                        </b:row>
+                                        <b:row>
+                                            <h:outputLabel value="About:&#160;"/><h:outputText value="#{companyParam.description}"/>   
+                                        </b:row>
+                                    </b:column>  
+                                </b:row>
                                 <b:row> 
                                     <b:dataTable  styleClass="table table-striped table-bordered"
                                                   fixedHeader="true"

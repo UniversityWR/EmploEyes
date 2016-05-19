@@ -36,6 +36,14 @@ public class CompanyListBean implements Serializable {
         Dao<Company> dao = Dao.newInstance();
         return dao.getAll(Company.class);
     }
+    
+    public Company getCompanyById(Long id){
+        Dao<Company> dao = Dao.newInstance();
+        if(id == null){
+            return null;
+        }
+        return dao.getById(Company.class,id);                
+    }
 
     public List<Company> getCompanyListByName() { 
         if (getSearchName() != null && !getSearchName().equals("")) {

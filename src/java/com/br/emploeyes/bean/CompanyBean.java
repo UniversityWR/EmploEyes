@@ -56,11 +56,7 @@ public class CompanyBean implements Serializable {
 
         if (company != null) {
             company.setName(formCompany.getName());
-            company.setBranch(formCompany.getBranch());
-            company.setDescription(formCompany.getDescription());
-            company.setCountry(formCompany.getCountry());
-            company.setState(formCompany.getState());
-            company.setCity(formCompany.getCity());
+            company.setSite(formCompany.getSite()); 
             Company companySaved = dao.save(company);
             this.setIdCompany(companySaved.getId());
         } else {
