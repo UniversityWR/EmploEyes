@@ -79,11 +79,6 @@ public class RoleBean implements Serializable {
         }
     }
 
-    public String addCompany() {
-        save(this.getRole());
-        return "company_form?faces-redirect=true&includeViewParams=true";
-    }
-
     public String cancel() {
         return "user_account?faces-redirect=true&includeViewParams=true";
     }

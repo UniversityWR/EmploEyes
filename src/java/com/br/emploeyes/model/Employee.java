@@ -3,6 +3,7 @@ package com.br.emploeyes.model;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Entity;
@@ -11,6 +12,10 @@ import javax.persistence.Id;
 
 @Entity
 public class Employee implements Serializable {
+
+    public enum Profile {
+        ADMIN, USUARIO
+    }
 
     @Id
     @GeneratedValue
@@ -21,7 +26,8 @@ public class Employee implements Serializable {
     private String city;
     private String province;
     private String country;
-    private String password;
+    private String password; 
+    private Profile profile = Profile.USUARIO;
 
     public Employee() {
     }
@@ -84,13 +90,17 @@ public class Employee implements Serializable {
 
     public String getPassword() {
         return password;
-    }
+    } 
 
     public void setPassword(String password) {
 
+        if(password.equals(this.getPassword())){
+            return;
+        }
+        
         MessageDigest md;
         try {
-            md = MessageDigest.getInstance("SHA1");
+            md = MessageDigest.getInstance("SHA-1");
 
             md.update(password.getBytes());
 
@@ -100,14 +110,28 @@ public class Employee implements Serializable {
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < byteData.length; i++) {
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-            }
-
-            System.out.println("Hex format : " + sb.toString());
+            } 
 
             this.password = sb.toString();
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
 }

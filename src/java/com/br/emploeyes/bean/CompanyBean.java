@@ -37,17 +37,28 @@ public class CompanyBean implements Serializable {
     }
 
     public String cancel() {
-        return "user_account?faces-redirect=true&includeViewParams=true";
+        return "/secured/admin?faces-redirect=true";
     }
 
     public Long saveCompany(Company company) {
         save(company);
         return this.getIdCompany();//"role_form?faces-redirect=true&includeViewParams=true";
     }
+    
+    public String saveCompany2(Company company) {
+        save(company);
+        return  "/secured/admin?faces-redirect=true&includeViewParams=true";
+    }
 
     public String editCompany(long id) {
         this.setIdCompany(id);
-        return "company_form?faces-redirect=true&includeViewParams=true";
+        return "/secured/company_form?faces-redirect=true&includeViewParams=true";
+    }
+    
+    public String removeCompany(long id) {
+        GenericDao<Company> dao = new GenericDao<>(Company.class);
+        dao.delete(id);
+        return "";
     }
 
     private void save(Company formCompany) {

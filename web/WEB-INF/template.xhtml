@@ -26,6 +26,8 @@
             <ul>
                 <li><h:link rendered="#{empty user}" outcome="/index" value="Login"/></li>
                 <li><h:link outcome="/list_companies" value="Company List"/></li>
+                <li><h:link rendered="#{not empty user}" outcome="/user_account" value="Profile"/></li>
+                <li><h:link rendered="#{userBean.isProfileAdmin()}" outcome="/secured/admin" value="Admin Panel"/></li>
             </ul>
         </div>
         <div id="content"><ui:insert name="content">Default content</ui:insert></div>

@@ -59,6 +59,16 @@ public class UserBean implements Serializable {
         }
     }
 
+    public boolean isProfileAdmin() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Employee user = (Employee) externalContext.getSessionMap().get("user");
+        if (user != null) {
+            return user.getProfile() == Employee.Profile.ADMIN;
+        }
+        return false;
+    }
+
     public String login() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -109,7 +119,7 @@ public class UserBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         externalContext.getSessionMap().put("user", user);
-        
+
         return "user_account?faces-redirect=true&includeViewParams=true";
     }
 

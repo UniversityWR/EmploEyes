@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<ui:composition  template="/WEB-INF/template.xhtml"
+                 xmlns:b="http://bootsfaces.net/ui"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:metadata>
+        <f:viewParam name="idUser" value="#{userBean.idUser}"/> 
+        <f:viewParam name="idUser" value="#{roleBean.idUser}"/>  
+        <f:viewAction action="#{userBean.init}" />
+    </f:metadata>
+    <ui:param name="userParam" value="#{user == null? userBean.user: user}"/>  
+
+    <ui:define name="title">
+        User Account   
+    </ui:define>
+    <ui:define name="content">
+        <b:container>
+            <b:row>
+                <b:column>
+                    <h:form id="accountForm">
+                        <b:container class="container"> 
+                            <b:container>
+                                <b:row>
+                                    <b:column medium-screen="4">
+                                        <b:inputText placeholder="Search Name" required="false" id="name" value="#{companyListBean.searchName}"/>
+                                    </b:column> 
+                                </b:row>  
+                                <b:row>
+                                    <b:column span="4">
+                                        <b:commandButton value="Search" action="#{companyListBean.getCompanyListByName()}" update="@form" look="primary"
+                                                         style="width:100%" />
+                                    </b:column>  
+                                </b:row>
+                            </b:container>
+                            <b:row>
+                                <b:column> 
+                                    <h:outputLabel value=""/> 
+                                </b:column> 
+                                <b:column> 
+                                    <h:outputLabel value="Companies"
+                                                   rendered="#{not empty companyListBean.getCompanyListByName()}" /> 
+                                </b:column> 
+                                <b:column span="2">
+                                    <b:commandButton id="newCompany" value="Create New" action="company_form?faces-redirect=true" look="secondary"
+                                                     style="width:100%" />
+                                </b:column> 
+
+                                <b:column> 
+                                    <h:outputLabel value=""/> 
+                                </b:column> 
+                                <b:column span="4" offset="0">
+                                    <h:dataTable value="#{companyListBean.getCompanyListByName()}" var="company"  >
+                                        <h:column > 
+                                            <b:container class="container">
+                                                <b:row>
+                                                    <b:column span="6"> 
+                                                        <h:outputLabel value="#{company.name}"/>
+                                                    </b:column> 
+                                                </b:row>
+                                                <b:row>
+                                                    <b:column span="2">
+                                                        <b:commandButton id="editCompany" value="Editar" action="#{companyBean.editCompany(company.id)}" look="secondary"
+                                                                         style="width:100%" />
+                                                    </b:column>
+                                                    <b:column span="2">
+                                                        <b:commandButton id="deleteCompany" value="Deletar" action="#{companyBean.removeCompany(company.id)}" look="danger"
+                                                                         style="width:100%" />
+                                                    </b:column> 
+                                                </b:row>
+                                            </b:container>
+                                        </h:column>
+                                    </h:dataTable>
+                                </b:column> 
+                            </b:row>  
+                        </b:container>
+                    </h:form>
+                </b:column>
+            </b:row>
+        </b:container> 
+    </ui:define>
+</ui:composition >
