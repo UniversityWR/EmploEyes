@@ -5,67 +5,68 @@
                  xmlns:h="http://java.sun.com/jsf/html"
                  xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <ui:param name="userParam" value="#{user == null? userBean.user: user}"/> 
     <f:metadata>
         <f:viewParam name="idUser" value="#{userBean.idUser}"/> 
         <f:viewParam name="idUser" value="#{roleBean.idUser}"/>  
+        <f:viewParam name="idUser" value="#{user == null? userBean.user.id: user.id}"/> 
         <f:viewAction action="#{userBean.init}" />
-    </f:metadata>
-    <ui:param name="userParam" value="#{user == null? userBean.user: user}"/>  
+    </f:metadata> 
 
     <ui:define name="title">
         User Account   
     </ui:define>
     <ui:define name="content">
-        <b:container>
+        <b:container style="max-width:500px">
             <b:row>
                 <b:column>
                     <h:form id="accountForm">
                         <b:container class="container">
                             <b:row>
-                                <b:column medium-screen="4">
+                                <b:column >
                                     <b:inputText placeholder="Name" required="false" id="name" value="#{userParam.name}"/>
                                 </b:column> 
-                                <b:column medium-screen="6">
+                                <b:column >
                                     <b:message for="name" />
                                 </b:column>
                             </b:row><b:row>
-                                <b:column medium-screen="4">
+                                <b:column >
                                     <b:inputText placeholder="City" required="false" id="city" value="#{userParam.city}"/>
                                 </b:column> 
                             </b:row><b:row>
-                                <b:column medium-screen="4">
+                                <b:column >
                                     <b:inputText placeholder="State" required="false" id="state" value="#{userParam.state}"/>
                                 </b:column> 
                             </b:row><b:row>
-                                <b:column medium-screen="4">
+                                <b:column >
                                     <b:inputText placeholder="Country" required="false" id="country" value="#{userParam.country}"/>
                                 </b:column> 
                             </b:row><b:row>
-                                <b:column medium-screen="4">
+                                <b:column>
                                     <b:inputText placeholder="Years Old" required="false" id="yearOld" value="#{userParam.yearOld}"/>
                                 </b:column>  
                             </b:row><b:row>
-                                <b:column medium-screen="4">
+                                <b:column >
                                     <b:inputText placeholder="E-mail" required="false" id="email" value="#{userParam.email}"/>
                                 </b:column>
-                                <b:column medium-screen="6">
+                                <b:column >
                                     <b:message for="email" />
                                 </b:column>
                             </b:row>
                             <b:row>
-                                <b:column medium-screen="4">
+                                <b:column >
                                     <b:inputSecret placeholder="Password" id="password" required="false" value="#{userParam.password}"/> 
                                 </b:column> 
-                                <b:column medium-screen="6">
+                                <b:column >
                                     <b:message for="password" />
                                 </b:column>
                             </b:row>
                             <b:row>
-                                <b:column span="2" offset="0">
+                                <b:column span="4" offset="0">
                                     <b:commandButton id="saveUser" value="saveUser" action="#{userBean.saveUser(userParam)}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column> 
-                                <b:column span="2" offset="0">
+                                <b:column span="4" offset="0">
                                     <b:commandButton id="cancel1" value="Cancel" action="#{userBean.loginPage()}" update="@form" look="danger"
                                                      style="width:100%" rendered="#{ userBean.idUser == 0}" />
                                     <b:commandButton id="cancel2" value="Cancel" action="#{userBean.searchList()}" update="@form" look="danger"

@@ -56,6 +56,15 @@ public class UserBean implements Serializable {
         if (this.idUser > 0) {
             GenericDao<Employee> dao = new GenericDao<>(Employee.class);
             this.setUser(dao.getById(this.idUser));
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+
+            Employee userSession = (Employee) externalContext.getSessionMap().get("user");
+            if (userSession != null) {
+                this.setUser(userSession);
+                this.setIdUser(userSession.getId());
+            }
         }
     }
 
@@ -73,21 +82,27 @@ public class UserBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
 
-        EmployeeDao dao = new EmployeeDao();
-        Employee user = dao.getUser(email, password);
-        if (user != null) {
-            externalContext.getSessionMap().put("user", user);
-            this.setIdUser(user.getId());
+        Employee userSession = (Employee) externalContext.getSessionMap().get("user");
+        if (userSession != null) {
+            this.setIdUser(userSession.getId());
             return "user_account?faces-redirect=true&includeViewParams=true";
         } else {
+            EmployeeDao dao = new EmployeeDao();
+            Employee userDB = dao.getUser(email, password);
+            if (userDB != null) {
+                externalContext.getSessionMap().put("user", userDB);
+                this.setIdUser(userDB.getId());
+                return "user_account?faces-redirect=true&includeViewParams=true";
+            } else {
 //            ResourceBundle bundle = ResourceBundle.getBundle(
 //                    "edu.bundles.MessageBundle",
 //                    context.getViewRoot().getLocale());
 //
 //            context.addMessage(null, new FacesMessage(bundle.getString("error.loginfailed.message")));
 
-            context.addMessage(null, new FacesMessage("Login failed"));
-            return "/index";
+                context.addMessage(null, new FacesMessage("Login failed"));
+                return "/index";
+            }
         }
     }
 
@@ -119,7 +134,6 @@ public class UserBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         externalContext.getSessionMap().put("user", user);
-
         return "user_account?faces-redirect=true&includeViewParams=true";
     }
 

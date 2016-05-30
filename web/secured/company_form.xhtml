@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <ui:composition  template="/WEB-INF/template.xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                 xmlns:b="http://bootsfaces.net/ui"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <f:metadata>
         <f:viewParam name="idCompany" value="#{companyBean.idCompany}"/> 
         <f:viewAction action="#{companyBean.init}" />
     </f:metadata>
- 
+
     <ui:define name="title">
-       Role Form  
+        Role Form  
     </ui:define>
     <ui:define name="content">
-        <b:container>
+        <b:container style="max-width:500px">
             <b:row>
                 <b:column>
                     <h:form id="roleForm">
                         <b:container class="container"> 
-                                <b:row>
-                                    <b:column medium-screen="4">
-                                        <b:inputText placeholder="Name" required="false" id="company_name" value="#{companyBean.company.name}"/>
-                                    </b:column> 
-                                </b:row>
-                                <b:row> 
-                                    <b:column medium-screen="4">
-                                        <b:inputText placeholder="Site" required="false" id="company_branch" value="#{companyBean.company.site}">
-                                            <f:facet name="prepend">
-                                                <h:outputText value="WWW" /> 
-                                            </f:facet> 
-                                        </b:inputText>
-                                    </b:column>  
-                                </b:row>
-                                <b:row>
-                                    <b:column medium-screen="4">  
-                                        <h:outputLabel value="Description"/>
-                                        <h:inputTextarea style="resize: none" required="false" id="company_description"
-                                                         cols="45" rows="5"   value="#{companyBean.company.description}"/> 
-                                    </b:column>
-                                </b:row>   
                             <b:row>
-                                <b:column span="2" offset="0">
+                                <b:column >
+                                    <b:inputText placeholder="Name" required="false" id="company_name" value="#{companyBean.company.name}"/>
+                                </b:column> 
+                            </b:row>
+                            <b:row> 
+                                <b:column >
+                                    <b:inputText placeholder="Site" required="false" id="company_branch" value="#{companyBean.company.site}">
+                                        <f:facet name="prepend">
+                                            <h:outputText value="WWW" /> 
+                                        </f:facet> 
+                                    </b:inputText>
+                                </b:column>  
+                            </b:row>
+                            <b:row> 
+                                <b:column >
+                                    <h:outputLabel value="Description"/>
+                                </b:column>
+                                <b:column >   
+                                    <h:inputTextarea style="resize: none" required="false" id="company_description"
+                                                     cols="45" rows="5"   value="#{companyBean.company.description}"/> 
+                                </b:column>
+                            </b:row>   
+                            <b:row>
+                                <b:column span="4" offset="0">
                                     <b:commandButton value="Save" action="#{companyBean.saveCompany2(companyBean.company)}" update="@form" look="primary"
                                                      style="width:100%" />
                                 </b:column> 
-                                <b:column span="2" offset="0">
+                                <b:column span="4" offset="0">
                                     <b:commandButton id="cancel1" value="Cancel" action="#{companyBean.cancel()}" update="@form" look="danger"
                                                      style="width:100%"/> 
                                 </b:column> 

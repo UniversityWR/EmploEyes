@@ -16,14 +16,14 @@
         User Account   
     </ui:define>
     <ui:define name="content">
-        <b:container>
+        <b:container style="max-width:500px">
             <b:row>
                 <b:column>
                     <h:form id="accountForm">
                         <b:container class="container"> 
                             <b:container>
                                 <b:row>
-                                    <b:column medium-screen="4">
+                                    <b:column >
                                         <b:inputText placeholder="Search Name" required="false" id="name" value="#{companyListBean.searchName}"/>
                                     </b:column> 
                                 </b:row>  
@@ -42,7 +42,7 @@
                                     <h:outputLabel value="Companies"
                                                    rendered="#{not empty companyListBean.getCompanyListByName()}" /> 
                                 </b:column> 
-                                <b:column span="2">
+                                <b:column span="4">
                                     <b:commandButton id="newCompany" value="Create New" action="company_form?faces-redirect=true" look="secondary"
                                                      style="width:100%" />
                                 </b:column> 
@@ -53,18 +53,18 @@
                                 <b:column span="4" offset="0">
                                     <h:dataTable value="#{companyListBean.getCompanyListByName()}" var="company"  >
                                         <h:column > 
-                                            <b:container class="container">
+                                            <b:container class="container" style="max-width:500px">
                                                 <b:row>
                                                     <b:column span="6"> 
                                                         <h:outputLabel value="#{company.name}"/>
                                                     </b:column> 
                                                 </b:row>
                                                 <b:row>
-                                                    <b:column span="2">
+                                                    <b:column span="4">
                                                         <b:commandButton id="editCompany" value="Editar" action="#{companyBean.editCompany(company.id)}" look="secondary"
                                                                          style="width:100%" />
                                                     </b:column>
-                                                    <b:column span="2">
+                                                    <b:column span="4">
                                                         <b:commandButton id="deleteCompany" value="Deletar" action="#{companyBean.removeCompany(company.id)}" look="danger"
                                                                          style="width:100%" />
                                                     </b:column> 

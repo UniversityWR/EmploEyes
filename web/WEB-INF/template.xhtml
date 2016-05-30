@@ -9,11 +9,7 @@
         <title><ui:insert name="title">Default title</ui:insert></title> 
     </h:head>
     <h:body>
-        <div id="header">
-            <div>
-                <h1>EmploEyes</h1>
-            </div>
-
+        <div id="header"> 
             <div>        
                 <h:form rendered="#{not empty user}">
                     Hello, #{user.name}! <h:commandLink value="(logout)" action="#{userBean.logout}"/>
@@ -22,18 +18,29 @@
                 <h:messages styleClass="errorMessage" />        
             </div>      
         </div>
-        <div id="menu"> 
-            <ul>
-                <li><h:link rendered="#{empty user}" outcome="/index" value="Login"/></li>
-                <li><h:link outcome="/list_companies" value="Company List"/></li>
-                <li><h:link rendered="#{not empty user}" outcome="/user_account" value="Profile"/></li>
-                <li><h:link rendered="#{userBean.isProfileAdmin()}" outcome="/secured/admin" value="Admin Panel"/></li>
-            </ul>
+        <div id="menu">  
+            <b:navBar class="nav nav-pills" brand="EmploEyes" fixed="top" inverse="false">
+
+                <h:form > 
+                    <b:label rendered="#{not empty user}" text="Hello, #{user.name}!"/>
+                    <b:navbarLinks>
+                        <b:navLink value="Home" outcome="/list_companies"/>
+                        <b:navLink value="Login" outcome="/index" rendered="#{empty user}"/> 
+                        <b:navCommandLink rendered="#{not empty user}"  action="#{userBean.login()}" value="Profile"/> 
+                        <b:navLink rendered="#{userBean.isProfileAdmin()}" outcome="/secured/admin" value="Admin Panel"/> 
+                        <b:navCommandLink value="Logout" rendered="#{not empty user}" action="#{userBean.logout}"/> 
+                    </b:navbarLinks>
+                </h:form>
+            </b:navBar>
         </div>
-        <div id="content"><ui:insert name="content">Default content</ui:insert></div>
+        <div id="content" style="width: 100%; margin:0 auto;padding: 60px;">
+            <b:jumbotron>
+                <ui:insert name="content">Default content</ui:insert>
+            </b:jumbotron>
+        </div>
         <div id="footer">
             <hr/>
-            Exemplo criado para fins educacionais
+            EmploEyes é a comunidade de carreiras onde você encontra o emprego ideal, avaliado por profissionais como você.
         </div>
     </h:body>
 </html>
