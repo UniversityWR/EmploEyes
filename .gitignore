@@ -46,7 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.class 
-*.properties
 nbproject/*
 *.NavData
 dist/* 
