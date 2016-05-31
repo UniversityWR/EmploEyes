@@ -1,6 +1,7 @@
 package com.br.emploeyes.listener;
  
 import com.br.emploeyes.model.Employee; 
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler; 
@@ -47,16 +48,14 @@ public class AuthPhaseListener implements PhaseListener {
               .getApplication()
               .getNavigationHandler();
 
-//      ResourceBundle bundle = ResourceBundle.getBundle(
-//              "edu.bundles.MessageBundle",
-//              context.getViewRoot().getLocale());
+      ResourceBundle bundle = ResourceBundle.getBundle(
+              "com.br.emploeyes.bundles.MessageBundle",
+              context.getViewRoot().getLocale());
 
       if (!isAuthenticated) {
-//        context.addMessage(null, new FacesMessage(bundle.getString("error.loginrequired.message")));
-        context.addMessage(null, new FacesMessage("error.loginrequired.message"));
+        context.addMessage(null, new FacesMessage(bundle.getString("error.loginrequired.message"))); 
       } else {
-//        context.addMessage(null, new FacesMessage(bundle.getString("error.notallowed.message")));
-        context.addMessage(null, new FacesMessage("error.notallowed.message" ));
+        context.addMessage(null, new FacesMessage(bundle.getString("error.notallowed.message"))); 
       }
 
       navigator.handleNavigation(context, null, "/index");

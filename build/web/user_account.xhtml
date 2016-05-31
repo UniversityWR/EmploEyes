@@ -93,18 +93,18 @@
                                 <b:column span="4" offset="0">
                                     <h:dataTable value="#{roleListBean.getRoleListByUserId(userParam.id)}" var="role" >
                                         <h:column > 
-                                            <b:container class="container">
+                                            <b:container class="container" style="max-width:500px">
                                                 <b:row>
                                                     <b:column span="6"> 
                                                         <h:outputLabel value="#{role.name}"/>
                                                     </b:column> 
                                                 </b:row>
                                                 <b:row>
-                                                    <b:column span="2">
+                                                    <b:column span="4">
                                                         <b:commandButton id="editRole" value="Editar" action="#{roleBean.editRole(role.id)}" look="secondary"
                                                                          style="width:100%" />
                                                     </b:column>
-                                                    <b:column span="2">
+                                                    <b:column span="4">
                                                         <b:commandButton id="deleteRole" value="Deletar" action="#{roleBean.removeRole(role.id)}" look="danger"
                                                                          style="width:100%" />
                                                     </b:column> 

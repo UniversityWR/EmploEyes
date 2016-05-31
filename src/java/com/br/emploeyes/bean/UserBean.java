@@ -5,6 +5,7 @@ import com.br.emploeyes.dao.GenericDao;
 import com.br.emploeyes.model.Employee;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -94,13 +95,11 @@ public class UserBean implements Serializable {
                 this.setIdUser(userDB.getId());
                 return "user_account?faces-redirect=true&includeViewParams=true";
             } else {
-//            ResourceBundle bundle = ResourceBundle.getBundle(
-//                    "edu.bundles.MessageBundle",
-//                    context.getViewRoot().getLocale());
-//
-//            context.addMessage(null, new FacesMessage(bundle.getString("error.loginfailed.message")));
+                ResourceBundle bundle = ResourceBundle.getBundle(
+                        "com.br.emploeyes.bundles.MessageBundle",
+                        context.getViewRoot().getLocale());
 
-                context.addMessage(null, new FacesMessage("Login failed"));
+                context.addMessage(null, new FacesMessage(bundle.getString("error.loginfailed.message"))); 
                 return "/index";
             }
         }

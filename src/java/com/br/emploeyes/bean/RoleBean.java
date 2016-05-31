@@ -89,7 +89,7 @@ public class RoleBean implements Serializable {
 
     public String saveRole(Function role, Long idUser, CompanyBean companyBean) {
         if (shouldCreateCompany) {
-            Long saveCompanyID = companyBean.saveCompany(this.getCompany());
+            Long saveCompanyID = companyBean.save(this.getCompany());
             role.setCompanyId(saveCompanyID);
         } else {
             role.setCompanyId(this.getIdCompany());

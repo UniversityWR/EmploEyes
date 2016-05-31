@@ -5,6 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://java.sun.com/jsf/core" >
+    
+    <f:loadBundle basename="com.br.emploeyes.bundles.MessageBundle" var="bundle"/>
     <h:head>
         <title><ui:insert name="title">Default title</ui:insert></title> 
     </h:head>
@@ -19,7 +21,7 @@
             </div>      
         </div>
         <div id="menu">  
-            <b:navBar class="nav nav-pills" brand="EmploEyes" fixed="top" inverse="false">
+            <b:navBar class="nav nav-pills" brand="${bundle.welcome}" fixed="top" inverse="false">
 
                 <h:form > 
                     <b:label rendered="#{not empty user}" text="Hello, #{user.name}!"/>
@@ -33,14 +35,18 @@
                 </h:form>
             </b:navBar>
         </div>
-        <div id="content" style="width: 100%; margin:0 auto;padding: 60px;">
+        <div id="content" style="align-content: center;padding: 60px 60px 0px 60px">
             <b:jumbotron>
                 <ui:insert name="content">Default content</ui:insert>
             </b:jumbotron>
         </div>
-        <div id="footer">
+        <div id="footer" style="width: 100%; margin:0 auto;">
             <hr/>
-            EmploEyes é a comunidade de carreiras onde você encontra o emprego ideal, avaliado por profissionais como você.
+            <b:container style="max-width:800px" >
+                <b:row  > 
+                    <b:column span="10" offset="1" style="font-style: oblique">#{bundle.footer}</b:column> 
+                </b:row>
+            </b:container>
         </div>
     </h:body>
 </html>
