@@ -119,6 +119,7 @@ public class RoleBean implements Serializable {
             function.setUserId(this.getIdUser());
             function.setCompanyId(formRole.getCompanyId());
             function.setStartYear(formRole.getStartYear());
+            function.setCurrentJob(formRole.isCurrentJob());
             function.setEndYear(formRole.getEndYear());
             function.setSalary(formRole.getSalary());
             function.setFeedback(formRole.getFeedback());

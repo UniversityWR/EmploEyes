@@ -86,14 +86,14 @@ public class UserBean implements Serializable {
         Employee userSession = (Employee) externalContext.getSessionMap().get("user");
         if (userSession != null) {
             this.setIdUser(userSession.getId());
-            return "user_account?faces-redirect=true&includeViewParams=true";
+            return "/user_account?faces-redirect=true&includeViewParams=true";
         } else {
             EmployeeDao dao = new EmployeeDao();
             Employee userDB = dao.getUser(email, password);
             if (userDB != null) {
                 externalContext.getSessionMap().put("user", userDB);
                 this.setIdUser(userDB.getId());
-                return "user_account?faces-redirect=true&includeViewParams=true";
+                return "/user_account?faces-redirect=true&includeViewParams=true";
             } else {
                 ResourceBundle bundle = ResourceBundle.getBundle(
                         "com.br.emploeyes.bundles.MessageBundle",

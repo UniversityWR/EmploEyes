@@ -32,13 +32,14 @@
                                     <b:inputText placeholder="Start Year" type="number" required="false" id="startYear" value="#{roleBean.role.startYear}">
                                         <f:facet name="prepend">
                                             <h:outputText value="Start Year" /> 
-                                        </f:facet> 
+                                        </f:facet>  
                                     </b:inputText>
+                                    <b:selectBooleanCheckbox  id="currentJob" caption="Current Job" onchange="this.form.submit()" value="#{roleBean.role.currentJob}"/>
                                 </b:column> 
-                            </b:row>
+                            </b:row> 
                             <b:row>
                                 <b:column >
-                                    <b:inputText placeholder="End Year" type="number" required="false" id="endYear" value="#{roleBean.role.endYear}">
+                                    <b:inputText rendered="#{not roleBean.role.currentJob}" placeholder="End Year" type="number" required="false" id="endYear" value="#{roleBean.role.endYear}">
                                         <f:facet name="prepend">
                                             <h:outputText value="End Year" /> 
                                         </f:facet> 

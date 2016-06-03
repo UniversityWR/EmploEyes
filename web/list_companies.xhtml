@@ -13,7 +13,7 @@
             <b:row>
                 <b:column>   
                     <h:form id="searchForm">
-                        <b:panelGrid colSpans="#{companyListBean.searchId > 0 ? '3,9' : '12,0' }">  
+                        <b:panelGrid colSpans="#{companyListBean.searchId > 0 ? '5,7' : '12,0' }">  
                             <b:column >
                                 <b:container  style="max-width: 500px">
                                     <b:row>
@@ -68,7 +68,7 @@
                                             <h:outputLabel value="Company:&#160;"/><h:outputText value="#{companyParam.name}"/>  
                                         </b:row>
                                         <b:row>
-                                            <h:outputLabel value="Site:&#160;"/><h:outputText value="#{companyParam.site}"/> 
+                                            <h:outputLabel value="Site:&#160;"/><h:outputText value="www.#{companyParam.site}"/> 
                                         </b:row>
                                         <b:row>
                                             <h:outputLabel value="About:&#160;"/><h:outputText value="#{companyParam.description}"/>   
@@ -94,9 +94,12 @@
                                             </b:row>  
                                             <b:row>
                                                 <b:column span="6"> 
+                                                    <!--<b:selectBooleanCheckbox  id="currentJob" caption="Current Job" onchange="this.form.submit()" value="#{roleBean.role.currentJob}"/>-->
                                                     <h:outputLabel value=" Start:&#160;"/><h:outputText value="#{function.startYear}"/> 
                                                     <h:outputLabel value="&#160;/&#160;"/> 
-                                                    <h:outputLabel value=" End:&#160;"/><h:outputText value="#{function.endYear}"/>
+                                                    <h:outputLabel rendered="#{not function.currentJob}" value=" End:&#160;"/>
+                                                    <h:outputText rendered="#{not function.currentJob}" value="#{function.endYear}"/>
+                                                    <h:outputLabel rendered="#{function.currentJob}" value=" Current Job"/>
                                                 </b:column>  
                                                 <b:column span="6" offset="0">  
                                                     <h:outputLabel value=" Salary:&#160;"/>  <h:outputText value="#{function.salary}">

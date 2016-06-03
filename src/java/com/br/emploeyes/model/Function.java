@@ -16,6 +16,7 @@ public class Function implements Serializable {
     private int startYear;
     private int endYear;
     private double salary;
+    private boolean currentJob;
     private String name;
     private String feedback;
 
@@ -85,4 +86,16 @@ public class Function implements Serializable {
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
     }
+
+    public boolean isCurrentJob() {
+        return currentJob;
+    }
+
+    public void setCurrentJob(boolean currentJob) {
+        this.currentJob = currentJob;
+    }
+
+  
+    
+    
 }
